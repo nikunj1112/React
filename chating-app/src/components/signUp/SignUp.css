@@ -102,3 +102,15 @@
   h2 .title{
     margin-top: 0;
   }
+
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  
+  .logo {
+    width: 230px;
+    height: 70px;
+    object-fit: cover;
+  }

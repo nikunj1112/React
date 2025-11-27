@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { signin, fetchusers, signinwithgoogles, signup } from "../../slices/userslice";
+import {
+  signin,
+  fetchusers,
+  signinwithgoogles,
+} from "../../slices/userslice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import "./SignIn.css";
-
-// import Logo from "../../assets/img/logo.png";
+import Logo from "../../../asset/img/logo.png";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -17,14 +20,37 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleEmailLogin = () => {
+    if (!email || !password) return alert("Please enter all fields!");
+    dispatch(signin({ email, password })).then((res) => {
+      if (!res.error) {
+        alert("Login Successful! 🎉");
+        navigate("/home");
+      } else {
+        alert("Invalid Email or Password");
+      }
+    });
+  };
+
+  const handleGoogleLogin = () => {
+    dispatch(signinwithgoogles()).then((res) => {
+      if (!res.error) {
+        alert("Google Login Successful! 🎉" );
+        navigate("/home");
+      } else {
+        alert("Google Login Failed!");
+      }
+    });
+  };
+
   return (
     <div className="signin-wrapper">
       <div className="signin-card">
 
-        {/* Logo Section
+        {/* Logo Section */}
         <div className="logo-container">
           <img src={Logo} alt="app logo" className="logo" />
-        </div> */}
+        </div>
 
         <h2 className="title">Welcome Back</h2>
 
@@ -48,20 +74,11 @@ export default function SignIn() {
           <label>Password</label>
         </div>
 
-        <button
-          className="btn signin-btn"
-          onClick={() => {
-            dispatch(signin({ email, password }));
-            navigate("/home");
-          }}
-        >
+        <button className="btn signin-btn" onClick={handleEmailLogin}>
           Sign In
         </button>
 
-        <button
-          className="btn google-btn"
-          onClick={() => dispatch(signinwithgoogles())}
-        >
+        <button className="btn google-btn" onClick={handleGoogleLogin}>
           Sign In with Google
         </button>
 

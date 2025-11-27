@@ -30,7 +30,7 @@ export const readmessage = createAsyncThunk(
   }
 );
 
-// SEND message (instant UI update)
+// SEND message
 export const sendmessage = createAsyncThunk(
   "chat/send",
   async ({ message, sender, receiver }, thunkAPI) => {
@@ -44,6 +44,7 @@ export const sendmessage = createAsyncThunk(
         sender,
         receiver,
         createdAt: chatid,
+        status: "sent", // initial status
       };
 
       await setDoc(doc(db, "chatroom", docid, "chats", chatid.toString()), newChat);
@@ -84,6 +85,22 @@ export const updatemessage = createAsyncThunk(
   }
 );
 
+// UPDATE STATUS: sent or seen
+export const updateStatus = createAsyncThunk(
+  "chat/status",
+  async ({ sender, receiver, chatid, status }, thunkAPI) => {
+    try {
+      const docid = getDocId(sender, receiver);
+      await updateDoc(doc(db, "chatroom", docid, "chats", chatid.toString()), {
+        status,
+      });
+      return { chatid, status };
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
 const chatslice = createSlice({
   name: "chat",
   initialState: {
@@ -94,6 +111,23 @@ const chatslice = createSlice({
   reducers: {
     resetChats: (state) => {
       state.chats = [];
+    },
+    // Optimistic UI for editing message
+    editLocalMessage: (state, action) => {
+      const { chatid, newMessage } = action.payload;
+      const index = state.chats.findIndex((c) => c.chatid === chatid);
+      if (index !== -1) {
+        state.chats[index].message = newMessage;
+        state.chats[index].edited = true;
+      }
+    },
+    // Optimistic UI for status
+    updateLocalStatus: (state, action) => {
+      const { chatid, status } = action.payload;
+      const index = state.chats.findIndex((c) => c.chatid === chatid);
+      if (index !== -1) {
+        state.chats[index].status = status;
+      }
     },
   },
   extraReducers: (builder) => {
@@ -118,9 +152,16 @@ const chatslice = createSlice({
           state.chats[index].message = newMessage;
           state.chats[index].edited = true;
         }
+      })
+      .addCase(updateStatus.fulfilled, (state, action) => {
+        const { chatid, status } = action.payload;
+        const index = state.chats.findIndex((c) => c.chatid === chatid);
+        if (index !== -1) {
+          state.chats[index].status = status;
+        }
       });
   },
 });
 
-export const { resetChats } = chatslice.actions;
+export const { resetChats, editLocalMessage, updateLocalStatus } = chatslice.actions;
 export default chatslice.reducer;
