@@ -4,6 +4,14 @@ A modern, full-stack chat application built using **React**, **Redux Toolkit**, 
 
 ---
 
+## 🔗 Live Application / Demo
+
+**View the Live Application Here:**
+
+
+
+---
+
 ## 📽️ Demo & Screenshots
 
 
