@@ -1,0 +1,68 @@
+/* Top contact/social bar */
+.sticky-top .d-flex p {
+  font-size: 14px;
+  margin: 0;
+}
+
+.sticky-top .d-flex i {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.sticky-top .d-flex i:hover {
+  color: #ffd700; /* golden hover effect */
+}
+
+/* Navbar */
+.navbar {
+  padding: 0.8rem 1rem;
+}
+
+.navbar-brand {
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 1px;
+}
+
+.navbar-nav .nav-link {
+  font-size: 16px;
+  padding: 0.6rem 1rem;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ffd700 !important; /* hover highlight */
+  border-bottom: 2px solid #ffd700;
+}
+
+.navbar-nav .dropdown-menu {
+  border-radius: 8px;
+  padding: 0.5rem 0;
+}
+
+.navbar-nav .dropdown-item {
+  font-size: 15px;
+  transition: background 0.3s ease;
+}
+
+.navbar-nav .dropdown-item:hover {
+  background: #f1f1f1;
+  color: #006d63 !important;
+}
+
+/* Mobile */
+@media (max-width: 991px) {
+  .navbar-nav {
+    background: #006d63;
+    border-radius: 8px;
+    margin-top: 0.5rem;
+  }
+
+  .navbar-nav .nav-link {
+    padding: 0.8rem;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .navbar-nav .nav-link:last-child {
+    border-bottom: none;
+  }
+}
