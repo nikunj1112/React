@@ -1,25 +1,20 @@
 # Real-Time Chat Application 💬
 
-<p align="center">
-  <img src="./assets/img/logo.png" alt="App Logo" width="150"/>
-</p>
-
 A modern, full-stack chat application built using **React**, **Redux Toolkit**, and **Firebase (Firestore + Authentication)** for real-time messaging and seamless user management.
 
 ---
 
 ## 📽️ Demo & Screenshots
 
-<p align="center">
-  <a href="[YOUR_YOUTUBE_DEMO_LINK]" target="_blank">
-    <img src="[YOUR_DEMO_THUMBNAIL_IMAGE_URL]" alt="Chat App Demo Video" style="max-width: 600px;"/>
-  </a>
-</p>
 
-### Screenshots:
-| Sign In Screen | Chat Interface |
-| :---: | :---: |
-| ![Sign In Screen](images/signin-screen.png) | ![Chat Box Screen](images/chat-screen.png) |
+https://github.com/user-attachments/assets/466bd844-80c5-4dfb-bc95-187e5f11496b
+
+
+###  Functionality to **edit** or **delete** previously sent messages :
+
+
+https://github.com/user-attachments/assets/6977e43b-4702-4c3a-89f3-9aa052e44b4a
+
 
 ---
 
