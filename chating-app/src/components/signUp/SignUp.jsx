@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signup, setCurrentUser } from "../../slices/userslice";
-import "./Signup.css";
+import "./SignUp.css";
 import Logo from "../../../asset/img/logo.png";
 
 export default function Signup() {
