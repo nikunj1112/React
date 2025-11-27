@@ -8,7 +8,7 @@ A modern, full-stack chat application built using **React**, **Redux Toolkit**, 
 
 **View the Live Application Here:**
 
-
+https://chatting-app-seven-henna.vercel.app/
 
 ---
 
