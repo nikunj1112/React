@@ -1,0 +1,21 @@
+{
+    "recipes": [
+      {
+        "id": 1,
+        "title": "Aloo Paratha",
+        "category": "Breakfast",
+        "ingredients": ["Aloo", "Atta", "Ghee"],
+        "instructions": "Mix all, stuff, and cook on tava."
+      },
+      {
+        "id": 2,
+        "title": "Chicken Curry",
+        "category": "Dinner",
+        "ingredients": ["Chicken", "Onion", "Tomato", "Spices"],
+        "instructions": "Braise onion, add chicken, cook till tender."
+      }
+    ],
+    "users": [
+        { "id": 1, "username": "testuser", "password": "password" }
+    ]
+  }

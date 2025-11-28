@@ -1,0 +1,203 @@
+/* ==================================== */
+/* 1. Navbar Base Styling (Desktop)     */
+/* ==================================== */
+
+.app-navbar {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-brand-custom {
+    font-weight: 700; 
+    font-size: 1.5rem;
+    text-decoration: none;
+    padding: 5px 0;
+}
+
+.navbar-nav-list {
+    display: flex; 
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    gap: 15px; 
+}
+
+.nav-link-custom {
+    padding: 8px 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease-in-out; 
+    color: #FCF6D9; /* Inactive link color */
+}
+
+.nav-link-custom:hover {
+    color: #CF4B00 !important; /* Orange on hover */
+}
+
+/* Hide Toggler on Desktop */
+.navbar-toggler-custom {
+    display: none;
+    border: none;
+    background: none;
+    color: #CF4B00;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.nav-collapse {
+    display: flex;
+    align-items: center;
+}
+
+/* ==================================== */
+/* 2. Custom Buttons Styling            */
+/* ==================================== */
+
+.btn-custom {
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    border: none; 
+    transition: background-color 0.3s, opacity 0.3s;
+    font-size: 1rem;
+    line-height: 1; 
+}
+
+/* Primary Color Button (Orange BG: #CF4B00) */
+.btn-primary-color {
+    background-color: #CF4B00; 
+    color: #FCF6D9; 
+}
+.btn-primary-color:hover {
+    opacity: 0.9;
+}
+
+/* Secondary Color Button (Gold BG: #DDBA7D) */
+.btn-secondary-color {
+    background-color: #DDBA7D; 
+    color: #FCF6D9; 
+}
+.btn-secondary-color:hover {
+    opacity: 0.9;
+}
+
+/* Cream Background Button (Cream BG: #FCF6D9) */
+.btn-cream-bg {
+    background-color: #FCF6D9; 
+    color: #CF4B00; 
+    border: 1px solid #CF4B00; 
+}
+.btn-cream-bg:hover {
+    background-color: #F0EAD6; 
+}
+
+/* ==================================== */
+/* 3. Dropdown Styling (Categories)     */
+/* ==================================== */
+
+.dropdown-custom {
+    position: relative;
+}
+
+.dropdown-menu-custom {
+    position: absolute;
+    right: 0;
+    list-style: none;
+    padding: 5px 0;
+    margin: 5px 0 0 0;
+    background-color: #FCF6D9; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+    border-radius: 5px;
+    min-width: 160px; 
+    z-index: 1010;
+}
+
+.dropdown-item-custom {
+    display: block;
+    width: 100%;
+    padding: 10px 15px; 
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.dropdown-item-custom:hover {
+    background-color: #9CC6DB; /* Soft Blue hover */
+    color: #FCF6D9 !important; 
+}
+
+/* ==================================== */
+/* 4. Mobile Responsiveness (< 992px)   */
+/* ==================================== */
+
+@media (max-width: 992px) {
+    /* Main Navbar Layout */
+    .app-navbar {
+        flex-wrap: wrap; 
+        padding: 10px;
+    }
+
+    /* Show Toggler on Mobile */
+    .navbar-toggler-custom {
+        display: block;
+    }
+
+    /* Collapse behavior */
+    .nav-collapse {
+        display: none;
+        width: 100%; 
+        order: 1; 
+        margin-top: 5px;
+        padding: 10px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.3); 
+    }
+    
+    .nav-collapse.open {
+        display: block;
+    }
+
+    /* Stack Items Vertically */
+    .navbar-nav-list {
+        flex-direction: column; 
+        align-items: center; 
+        width: 100%;
+        gap: 0; 
+    }
+
+    .nav-item-custom {
+        width: 95%; 
+        text-align: center;
+        margin: 5px 0;
+    }
+    
+    /* Links and Buttons Take Full Width on Mobile */
+    .nav-link-custom, .btn-custom {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+    
+    /* Mobile Dropdown Fixes */
+    .dropdown-menu-custom {
+        position: static; 
+        width: 100%;
+        margin: 0;
+        padding-bottom: 10px;
+        box-shadow: none;
+        border-radius: 0;
+        border-top: 1px solid #DDBA7D; 
+    }
+}
