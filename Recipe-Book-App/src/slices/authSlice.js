@@ -1,4 +1,5 @@
 // src/slices/authSlice.js
+
 const LOGIN = 'auth/login';
 const LOGOUT = 'auth/logout';
 
@@ -7,6 +8,7 @@ const initialAuthState = {
     user: null,
 };
 
+// Reducer Logic
 export const authReducer = (state = initialAuthState, action) => {
     switch (action.type) {
         case LOGIN:
@@ -18,9 +20,9 @@ export const authReducer = (state = initialAuthState, action) => {
     }
 };
 
-// Simplified Thunk for Login
+// Thunks (Mock Login)
 export const login = (username, password) => async (dispatch) => {
-    // Check against db.json/users
+    // 🛑 Mock Auth: Real app would call backend/JSON Server
     if (username === 'testuser' && password === 'password') {
         dispatch({ type: LOGIN, payload: { name: username } });
         return true;
@@ -29,3 +31,6 @@ export const login = (username, password) => async (dispatch) => {
 };
 
 export const logout = () => ({ type: LOGOUT });
+
+// FIX: Default Export जोड़ा गया
+export default authReducer;

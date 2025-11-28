@@ -1,18 +1,20 @@
+// src/components/navbar/Navbar.jsx
 import React, { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// मान लें कि आपने ये actions अपने slices में डिफाइन किए हैं
 import { logout } from "../../slices/authSlice"; 
 import { filterByCategory } from "../../slices/recipeSlice";
+import "./navbar.css";
 
-// यह वह होम पेज कंटेंट है जिसे हमने पिछले उत्तरों में बनाया था
+
+// ---------------- Home Page Content ----------------
 function HomePageContent() {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   return (
     <div 
-      className="home-content container text-center py-5" 
-      style={{ backgroundColor: "#FCF6D9", minHeight: '80vh' }}
+      className="home-content container-fluid text-center py-5" 
+      style={{ backgroundColor: "#FCF6D9", minHeight: '50vh' }}
     >
       <h1 className="display-4 fw-bold mb-4" style={{ color: "#CF4B00" }}>
         👋 Welcome to Cookify!
@@ -52,20 +54,19 @@ function HomePageContent() {
     </div>
   );
 }
-// ------------------------------------------------
 
+
+// ---------------- Navbar Component ----------------
 export default function NavbarAndHome() {
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.auth);
   const location = useLocation();
   
-  // State for mobile menu toggle
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const categories = ["All", "Breakfast", "Lunch", "Dinner", "Snacks", "Dessert", "Drinks"];
 
-  // Function to close menu on nav item click (for cleaner mobile UX)
   const handleNavClick = () => {
     setIsMenuOpen(false);
     setIsDropdownOpen(false);
@@ -73,30 +74,26 @@ export default function NavbarAndHome() {
 
   return (
     <>
-      {/* --- 1. Navigation Bar --- */}
-      <nav 
-        className="app-navbar"
-        style={{ backgroundColor: "#9CC6DB" }} // Soft Blue Background
-      >
+      {/* --- Navbar --- */}
+      <nav className="app-navbar" style={{ backgroundColor: "#9CC6DB" }}>
         <Link
           className="navbar-brand-custom"
           to="/"
-          style={{ color: "#CF4B00" }} // Deep Orange Brand Name
+          style={{ color: "#CF4B00" }}
           onClick={handleNavClick}
         >
           🍽 Cookify
         </Link>
 
-        {/* Navbar Toggler Button (Mobile View) */}
+        {/* Hamburger for Mobile */}
         <button
           className="navbar-toggler-custom"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          {/* Toggler icon (hamburger) */}
           ☰
         </button>
 
-        <div className={`nav-collapse ${isMenuOpen ? 'open' : ''}`}>
+        <div className={`nav-collapse ${isMenuOpen ? "open" : ""}`}>
           <ul className="navbar-nav-list">
 
             {/* Home Link */}
@@ -105,7 +102,7 @@ export default function NavbarAndHome() {
                 className="nav-link-custom"
                 to="/"
                 style={({ isActive }) => ({
-                  color: isActive ? "#CF4B00" : "#FCF6D9", 
+                  color: isActive ? "#CF4B00" : "#FCF6D9",
                   fontWeight: "600",
                 })}
                 onClick={handleNavClick}
@@ -114,7 +111,7 @@ export default function NavbarAndHome() {
               </NavLink>
             </li>
 
-            {/* Category Dropdown (Only for Logged-in Users) */}
+            {/* Categories Dropdown (Only for Authenticated Users) */}
             {isAuthenticated && (
               <li className="nav-item-custom dropdown-custom">
                 <button
@@ -150,17 +147,16 @@ export default function NavbarAndHome() {
               <NavLink
                 className="btn-custom btn-secondary-color"
                 to="/add"
-                style={{ backgroundColor: "#DDBA7D", color: "#FCF6D9" }} 
+                style={{ backgroundColor: "#DDBA7D", color: "#FCF6D9" }}
                 onClick={handleNavClick}
               >
                 ➕ Add Recipe
               </NavLink>
             </li>
 
-            {/* --- Login / Get Started / Logout Buttons --- */}
+            {/* Authentication Buttons */}
             {!isAuthenticated ? (
               <>
-                {/* 1. Get Started Button */}
                 <li className="nav-item-custom">
                   <NavLink
                     className="btn-custom btn-cream-bg"
@@ -171,7 +167,6 @@ export default function NavbarAndHome() {
                     🚀 Get Started
                   </NavLink>
                 </li>
-                {/* 2. Login Button */}
                 <li className="nav-item-custom">
                   <NavLink
                     className="btn-custom btn-primary-color"
@@ -184,7 +179,6 @@ export default function NavbarAndHome() {
                 </li>
               </>
             ) : (
-              // 3. Logout Button (If Logged-in)
               <li className="nav-item-custom">
                 <button
                   className="btn-custom btn-primary-color"
@@ -202,8 +196,8 @@ export default function NavbarAndHome() {
         </div>
       </nav>
 
-      {/* --- 2. Home Page Content Display --- */}
-      {location.pathname === '/' && <HomePageContent />}
+      {/* Home Page Content */}
+      {location.pathname === "/" && <HomePageContent />}
     </>
   );
 }

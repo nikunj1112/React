@@ -1,21 +1,64 @@
 {
-    "recipes": [
-      {
-        "id": 1,
-        "title": "Aloo Paratha",
-        "category": "Breakfast",
-        "ingredients": ["Aloo", "Atta", "Ghee"],
-        "instructions": "Mix all, stuff, and cook on tava."
-      },
-      {
-        "id": 2,
-        "title": "Chicken Curry",
-        "category": "Dinner",
-        "ingredients": ["Chicken", "Onion", "Tomato", "Spices"],
-        "instructions": "Braise onion, add chicken, cook till tender."
-      }
-    ],
-    "users": [
-        { "id": 1, "username": "testuser", "password": "password" }
-    ]
-  }
+  "recipes": [
+    {
+      "id": 1,
+      "title": "Aloo Paratha",
+      "category": "Breakfast",
+      "ingredients": ["Potato", "Wheat Flour", "Ghee", "Salt", "Spices"],
+      "instructions": "Boil potatoes, mash with spices, stuff in dough, roll and cook with ghee on tawa."
+    },
+    {
+      "id": 2,
+      "title": "Chicken Curry",
+      "category": "Dinner",
+      "ingredients": ["Chicken", "Onion", "Tomato", "Oil", "Spices"],
+      "instructions": "Cook onions till brown, add chicken and spices, simmer until cooked."
+    },
+    {
+      "id": 3,
+      "title": "Masala Dosa",
+      "category": "South Indian",
+      "ingredients": ["Rice Batter", "Potato Masala", "Oil"],
+      "instructions": "Spread batter on tawa, add potato stuffing, fold and serve with chutney."
+    },
+    {
+      "id": 4,
+      "title": "Paneer Butter Masala",
+      "category": "Lunch",
+      "ingredients": ["Paneer", "Cream", "Butter", "Tomato Gravy"],
+      "instructions": "Cook paneer in rich tomato gravy with butter and cream."
+    },
+    {
+      "id": 5,
+      "title": "Veg Momos",
+      "category": "Snacks",
+      "ingredients": ["Cabbage", "Carrot", "Flour", "Oil", "Sauce"],
+      "instructions": "Stuff veggies inside dough, steam and serve with spicy sauce."
+    },
+    {
+      "id": 6,
+      "title": "Chocolate Cake",
+      "category": "Dessert",
+      "ingredients": ["Flour", "Sugar", "Cocoa Powder", "Eggs", "Butter"],
+      "instructions": "Mix all ingredients, bake for 30 minutes at 180°C."
+    },
+    {
+      "id": 7,
+      "title": "Idli Sambhar",
+      "category": "South Indian",
+      "ingredients": ["Rice Batter", "Dal", "Veggies", "Spices"],
+      "instructions": "Steam idli batter, serve with hot sambhar."
+    },
+    {
+      "id": 8,
+      "title": "Biryani",
+      "category": "Lunch",
+      "ingredients": ["Rice", "Meat/Paneer", "Spices", "Coriander"],
+      "instructions": "Layer rice & meat with spices, cook on dum."
+    }
+  ],
+  "users": [
+    { "id": 1, "username": "nikunj", "password": "12345678" },
+    { "id": 2, "username": "admin", "password": "admin123" }
+  ]
+}
