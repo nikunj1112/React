@@ -1,0 +1,122 @@
+/* ============================== */
+/* Cookify Recipe Form Styling    */
+/* ============================== */
+
+:root {
+    --primary-orange: #CF4B00;
+    --cream: #FCF6D9;
+    --beige: #DDBA7D;
+    --blue: #9CC6DB;
+    --text-dark: #333;
+    --card-bg: #ffffff;
+  }
+  
+  /* Container Card */
+  .recipe-form-container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: var(--card-bg);
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    animation: fadeIn 0.4s ease-out;
+  }
+  
+  /* Heading */
+  .recipe-form-title {
+    color: var(--primary-orange);
+    font-weight: 800;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  
+  /* Input & Select */
+  .form-label {
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+  
+  .form-control,
+  .form-select {
+    border-radius: 10px !important;
+    border: 1px solid var(--blue);
+    padding: 10px 12px;
+    background: #fafafa;
+    transition: all 0.25s ease;
+  }
+  
+  .form-control:focus,
+  .form-select:focus {
+    background: #fff;
+    border-color: var(--primary-orange);
+    box-shadow: 0 0 0 3px rgba(207, 75, 0, 0.25);
+  }
+  
+  /* Add Button */
+  .recipe-btn {
+    width: 100%;
+    background: var(--primary-orange);
+    color: var(--cream);
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.2s ease;
+  }
+  
+  .recipe-btn:hover {
+    background: #b43f00;
+    transform: translateY(-2px);
+  }
+  
+  .recipe-btn:active {
+    transform: scale(0.97);
+  }
+  
+  /* Fade animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Mobile */
+  @media (max-width: 480px) {
+    .recipe-form-container {
+      padding: 20px;
+      margin: 16px;
+    }
+  
+    .recipe-form-title {
+      font-size: 20px;
+    }
+  }
+  
+
+  /* Back Arrow Button */
+.back-arrow {
+    background: transparent;
+    border: none;
+    color: var(--primary-orange);
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: 0.2s;
+  }
+  
+  .back-arrow:hover {
+    color: #b43f00;
+    text-decoration: underline;
+  }
+  

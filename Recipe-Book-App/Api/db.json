@@ -1,64 +1,219 @@
 {
   "recipes": [
     {
-      "id": 1,
-      "title": "Aloo Paratha",
-      "category": "Breakfast",
-      "ingredients": ["Potato", "Wheat Flour", "Ghee", "Salt", "Spices"],
-      "instructions": "Boil potatoes, mash with spices, stuff in dough, roll and cook with ghee on tawa."
+      "id": "1",
+      "title": "Veggie Sandwich",
+      "category": "Snacks",
+      "ingredients": [
+        "Bread",
+        "Lettuce",
+        "Cucumber",
+        "Tomato",
+        "Cheese"
+      ],
+      "instructions": "Layer veggies between bread slices and grill lightly.",
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=d9ace4f5143bf3689cef4b04b65b04e0f8735157-5669587-images-thumbs&n=13",
+      "imageHoverUrl": "https://avatars.mds.yandex.net/i?id=c79c0928fcc2b58c8414b823702f2a6012bdf594-9068689-images-thumbs&n=13",
+      "time": "10 min",
+      "rating": 4,
+      "servings": 2,
+      "difficulty": "Medium"
     },
     {
-      "id": 2,
+      "id": "2",
+      "title": "Masala Tea",
+      "category": "Drinks",
+      "ingredients": [
+        "Tea Powder",
+        "Milk",
+        "Sugar",
+        "Ginger",
+        "Masala"
+      ],
+      "instructions": "Boil all ingredients and strain before serving.",
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=f9d634b087062161be2e49a34975d5a94fae23fd-5192525-images-thumbs&n=13",
+      "imageHoverUrl": "https://avatars.mds.yandex.net/i?id=324aa2da3630e49d216e140c8d426047293fa0f7-12319474-images-thumbs&n=13",
+      "time": "7 min",
+      "rating": 4.4,
+      "servings": 1,
+      "difficulty": "Easy"
+    },
+    {
+      "id": "3",
+      "title": "Grilled Cheese Sandwich",
+      "category": "Snacks",
+      "ingredients": [
+        "Bread",
+        "Cheese",
+        "Butter"
+      ],
+      "instructions": "Butter bread, add cheese, grill until golden.",
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=15b0e9f9e4ddc6fa6f5c663a6bd6c806785ab530-16492174-images-thumbs&n=13",
+      "imageHoverUrl": "https://avatars.mds.yandex.net/i?id=f8e156fb0a1323faee51cb251b563919233cbb6e-5241056-images-thumbs&n=13",
+      "time": "10 min",
+      "rating": 4.2
+    },
+    {
+      "id": "4",
+      "title": "Chocolate Brownie",
+      "category": "Dessert",
+      "ingredients": [
+        "Chocolate",
+        "Flour",
+        "Sugar",
+        "Butter",
+        "Eggs"
+      ],
+      "instructions": "Mix ingredients and bake at 180°C for 25 min.",
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=a85d6a5ca00070fab9eaeba07eb006ba266144b3-4503991-images-thumbs&n=13",
+      "imageHoverUrl": "https://avatars.mds.yandex.net/i?id=df3be6c0d322f425adde6460cc0c8fa73a054b4a-5279990-images-thumbs&n=13",
+      "time": "30 min",
+      "rating": 4.8
+    },
+    {
+      "id": "5",
+      "title": "Caesar Salad",
+      "category": "Lunch",
+      "ingredients": [
+        "Lettuce",
+        "Croutons",
+        "Parmesan",
+        "Caesar Dressing"
+      ],
+      "instructions": "Toss all ingredients together.",
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=18b41929822ab2557f7a56a082b57946975c6dae-16347398-images-thumbs&n=13",
+      "imageHoverUrl": "https://avatars.mds.yandex.net/i?id=8425222a30a10fdda4c006fe8badb24aea957e24-9068512-images-thumbs&n=13",
+      "time": "15 min",
+      "rating": 4.3
+    },
+    {
+      "id": "6",
+      "title": "Vegetable Stir Fry",
+      "category": "Dinner",
+      "ingredients": [
+        "Broccoli",
+        "Carrot",
+        "Bell Pepper",
+        "Soy Sauce",
+        "Garlic"
+      ],
+      "instructions": "Stir fry vegetables with soy sauce and garlic.",
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=31d159c06be966c03a9912f63f57c60d9e1144b8-12752893-images-thumbs&n=13",
+      "imageHoverUrl": "https://avatars.mds.yandex.net/i?id=84af813ae84c50b575f7963ae6a78064d8bb17ee-5235375-images-thumbs&n=13",
+      "time": "20 min",
+      "rating": 4.6
+    },
+    {
+      "id": "7",
+      "title": "Mango Smoothie",
+      "category": "Drinks",
+      "ingredients": [
+        "Mango",
+        "Milk",
+        "Honey",
+        "Ice Cubes"
+      ],
+      "instructions": "Blend all ingredients until smooth.",
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=a6376a644a39c566d3ea80c40fff97735b21c837-10907882-images-thumbs&n=13",
+      "imageHoverUrl": "https://avatars.mds.yandex.net/i?id=981c91b68c2988aae1ecc3ed402a46489c00eb14-7843541-images-thumbs&n=13",
+      "time": "5 min",
+      "rating": 4.9
+    },
+    {
+      "id": "8",
       "title": "Chicken Curry",
       "category": "Dinner",
-      "ingredients": ["Chicken", "Onion", "Tomato", "Oil", "Spices"],
-      "instructions": "Cook onions till brown, add chicken and spices, simmer until cooked."
+      "ingredients": [
+        "Chicken",
+        "Onion",
+        "Tomato",
+        "Spices",
+        "Oil"
+      ],
+      "instructions": "Cook chicken with spices and simmer with tomato sauce.",
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=93f506efb7d76aa03394cb17def10512d64909dd-10803837-images-thumbs&n=13",
+      "imageHoverUrl": "https://avatars.mds.yandex.net/i?id=8b99f04f7bc9bd0344d3b0a75de4983f2a0851ff-7085654-images-thumbs&n=13",
+      "time": "40 min",
+      "rating": 4.7
     },
     {
-      "id": 3,
-      "title": "Masala Dosa",
-      "category": "South Indian",
-      "ingredients": ["Rice Batter", "Potato Masala", "Oil"],
-      "instructions": "Spread batter on tawa, add potato stuffing, fold and serve with chutney."
+      "id": "9",
+      "title": "Veggie Omelette",
+      "category": "Breakfast",
+      "ingredients": [
+        "Eggs",
+        "Onion",
+        "Tomato",
+        "Bell Pepper",
+        "Cheese"
+      ],
+      "instructions": "Beat eggs, add vegetables, cook on skillet.",
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=32b4e4647e0dea2457b3571b343bba7dec47d905-12482641-images-thumbs&n=13",
+      "imageHoverUrl": "https://avatars.mds.yandex.net/i?id=92688e39526e11fa12dc9453cb8116a6bb342fa2-12488446-images-thumbs&n=13",
+      "time": "15 min",
+      "rating": 4.4
     },
     {
-      "id": 4,
+      "id": "1b12",
       "title": "Paneer Butter Masala",
-      "category": "Lunch",
-      "ingredients": ["Paneer", "Cream", "Butter", "Tomato Gravy"],
-      "instructions": "Cook paneer in rich tomato gravy with butter and cream."
+      "category": "Dinner",
+      "ingredients": [
+        "200g Paneer",
+        "2 Tomatoes",
+        "1 Onion."
+      ],
+      "instructions": "Heat butter, sauté onion & tomato paste, add spices. Add paneer cubes, cream and cook for 5 minutes.",
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=940b730245503e4fff7abef390d7c6395975c39b-5248827-images-thumbs&n=13",
+      "time": "30 min",
+      "rating": 5,
+      "imageHoverUrl": "https://avatars.mds.yandex.net/i?id=489b779340d71ddc902d27dbe50c704d174e09dc-7149282-images-thumbs&n=13",
+      "servings": 2,
+      "difficulty": "Medium"
     },
     {
-      "id": 5,
-      "title": "Veg Momos",
+      "id": "5eb3",
+      "title": "Special Masala Maggi",
       "category": "Snacks",
-      "ingredients": ["Cabbage", "Carrot", "Flour", "Oil", "Sauce"],
-      "instructions": "Stuff veggies inside dough, steam and serve with spicy sauce."
+      "ingredients": [
+        "Maggi Noodles",
+        "Oil",
+        "Chopped Onion",
+        "Chopped Tomato",
+        "Green Chilli",
+        "Capsicum",
+        "Maggi Masala",
+        "Salt",
+        "Red Chilli Powder",
+        "turmeric",
+        "Water",
+        "Coriander."
+      ],
+      "instructions": "Heat oil in a pan. Add onions, capsicum, green chilli and sauté. Add tomatoes and cook until soft. Add Maggi masala, chilli powder, turmeric and salt. Pour water and bring to boil. Add noodles, cook until soft and mix well. Garnish with coriander and serve hot.",
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=ed4354ffddf3e3f3b24d084f982f605da5c035b4-5233210-images-thumbs&n=13",
+      "time": "10 min",
+      "rating": 4,
+      "imageHoverUrl": "https://avatars.mds.yandex.net/i?id=4828d87d9e6081d8a889fe07f73d4b2ac425830a-5870583-images-thumbs&n=13",
+      "servings": 3,
+      "difficulty": "Medium"
     },
     {
-      "id": 6,
-      "title": "Chocolate Cake",
-      "category": "Dessert",
-      "ingredients": ["Flour", "Sugar", "Cocoa Powder", "Eggs", "Butter"],
-      "instructions": "Mix all ingredients, bake for 30 minutes at 180°C."
-    },
-    {
-      "id": 7,
-      "title": "Idli Sambhar",
-      "category": "South Indian",
-      "ingredients": ["Rice Batter", "Dal", "Veggies", "Spices"],
-      "instructions": "Steam idli batter, serve with hot sambhar."
-    },
-    {
-      "id": 8,
-      "title": "Biryani",
-      "category": "Lunch",
-      "ingredients": ["Rice", "Meat/Paneer", "Spices", "Coriander"],
-      "instructions": "Layer rice & meat with spices, cook on dum."
+      "id": "8a38",
+      "title": "Iced Cold Coffee",
+      "category": "Drinks",
+      "ingredients": [
+        "1 cup chilled milk",
+        "1 tbsp coffee",
+        "1 tbsp sugar",
+        "4–5 ice cubes",
+        "1 scoop vanilla ice cream."
+      ],
+      "instructions": "Add coffee, sugar, milk and ice cubes into a blender. Blend until frothy and smooth. Pour into a glass, top with vanilla ice cream if desired, and serve chilled.",
+      "imageUrl": "https://avatars.mds.yandex.net/i?id=79f0cdc8e9f64c0f1085de40d76e5f3c6accab36-4456735-images-thumbs&n=13",
+      "time": "30 min",
+      "rating": 3,
+      "imageHoverUrl": "https://avatars.mds.yandex.net/i?id=27dbf201d436f69261c95fde9042e1282a4af7e4-5232501-images-thumbs&n=13",
+      "servings": 4,
+      "difficulty": "Easy"
     }
-  ],
-  "users": [
-    { "id": 1, "username": "nikunj", "password": "12345678" },
-    { "id": 2, "username": "admin", "password": "admin123" }
   ]
 }

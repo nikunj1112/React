@@ -1,15 +1,16 @@
 // src/components/privateRoute/PrivateRoute.jsx
+import React from "react";
+import { useSelector } from "react-redux";
+import { Navigate, useLocation } from "react-router-dom";
 
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+export default function PrivateRoute({ children }) {
+  const { isAuthenticated } = useSelector((s) => s.auth || {});
+  const location = useLocation();
 
-const PrivateRoute = ({ children }) => {
-    const { isAuthenticated } = useSelector((state) => state.auth);
+  if (!isAuthenticated) {
+    // redirect to login, remember where we came from
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
 
-    // यदि isAuthenticated true है, तो children (protected content) दिखाओ, 
-    // अन्यथा, /login पेज पर भेजो।
-    return isAuthenticated ? children : <Navigate to="/login" />;
-};
-
-export default PrivateRoute;
+  return children;
+}

@@ -1,138 +1,140 @@
-/* Custom Color Palette (यदि यह index.css में नहीं है, तो इसे यहाँ जोड़ें) */
-:root {
-    --color-soft-blue: #9CC6DB;
-    --color-cream: #FCF6D9;
-    --color-primary-orange: #CF4B00;
-    --color-muted-gold: #DDBA7D;
-    --color-text-dark: #333;
-}
+/* Signin.css - clean card, soft shadows, accessible */
 
-/* ==================================== */
-/* 1. Auth Pages Layout (Login/Register)*/
-/* ==================================== */
-
-.auth-page-container {
-    /* स्क्रीन को केंद्र में लाने के लिए */
+/* Page layout */
+.signin-page {
+    min-height: calc(100vh - 80px);
     display: flex;
-    justify-content: center;
     align-items: center;
-    min-height: 90vh; /* Navbar के नीचे की पूरी ऊंचाई */
-    padding: 30px 10px;
-    background-color: var(--color-cream);
-}
-
-.auth-card {
+    justify-content: center;
+    background: #FCF6D9;
+    padding: 36px 18px;
+    box-sizing: border-box;
+    font-family: Inter, "Segoe UI", Roboto, system-ui, -apple-system, sans-serif;
+  }
+  
+  /* Card */
+  .signin-card {
     width: 100%;
-    max-width: 400px;
-    background-color: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    /* ऑरेंज टॉप बॉर्डर */
-    border-top: 5px solid var(--color-primary-orange); 
-}
-
-.auth-heading {
-    text-align: center;
-    margin-bottom: 5px;
-    font-weight: 700;
-    color: var(--color-primary-orange); /* Deep Orange */
-}
-
-.auth-subtext {
-    text-align: center;
-    margin-bottom: 25px;
+    max-width: 440px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 14px 36px rgba(20,20,20,0.08);
+    box-sizing: border-box;
+    border: 1px solid #f0f0f0;
+  }
+  
+  /* Titles */
+  .signin-title {
+    margin: 0 0 6px 0;
+    color: #CF4B00;
+    font-size: 1.6rem;
+    font-weight: 800;
+  }
+  .signin-sub {
+    margin: 0 0 18px 0;
+    color: #6b6b6b;
     font-size: 0.95rem;
-    color: var(--color-muted-gold); /* Muted Gold */
-}
-
-/* ==================================== */
-/* 2. Form and Inputs                   */
-/* ==================================== */
-
-.auth-form {
-    display: flex;
-    flex-direction: column;
-}
-
-.input-group {
-    margin-bottom: 15px;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 500;
-    color: var(--color-text-dark);
-}
-
-.input-group input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    box-sizing: border-box; 
-    border: 1px solid var(--color-soft-blue); /* Soft Blue Border */
-    transition: border-color 0.3s;
-}
-
-.input-group input:focus {
-    outline: none;
-    border-color: var(--color-primary-orange) !important; /* Focus Orange */
-}
-
-/* Submit Button */
-.btn-submit {
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.1rem;
+  }
+  
+  /* Form rows */
+  .form-row {
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-bottom: 12px;
+  }
+  .form-row label {
     font-weight: 700;
-    cursor: pointer;
-    margin-top: 10px;
-    background-color: var(--color-primary-orange); /* Deep Orange BG */
-    color: var(--color-cream); /* Cream Text */
-    transition: opacity 0.3s;
-}
-
-.btn-submit:hover {
-    opacity: 0.9;
-}
-
-.error-message {
-    color: red;
-    text-align: center;
-    margin-bottom: 15px;
-    background-color: #ffe0e0;
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid red;
-}
-
-/* ==================================== */
-/* 3. Footer Links                      */
-/* ==================================== */
-
-.auth-link-footer {
-    text-align: center;
-    margin-top: 20px;
     font-size: 0.9rem;
-}
-
-.link-text {
-    color: var(--color-soft-blue); /* Soft Blue Link */
-    text-decoration: none;
-    font-weight: 600;
-}
-.link-text:hover {
-    text-decoration: underline;
-}
-
-/* ==================================== */
-/* 4. Mobile Adjustments                */
-/* ==================================== */
-@media (max-width: 500px) {
-    .auth-card {
-        padding: 20px;
-        margin: 0 10px;
-    }
-}
+    color: #222;
+  }
+  
+  /* Inputs */
+  .input {
+    padding: 12px 12px;
+    border-radius: 10px;
+    border: 1px solid #e6e6e6;
+    background: #fafafa;
+    font-size: 1rem;
+    outline: none;
+    transition: box-shadow .16s ease, border-color .16s ease;
+  }
+  .input:focus {
+    border-color: #9CC6DB;
+    box-shadow: 0 6px 18px rgba(156,198,219,0.12);
+  }
+  
+  /* password wrapper */
+  .password-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .show-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    padding: 6px 8px;
+    cursor: pointer;
+    font-weight: 700;
+    color: #6b6b6b;
+    border-radius: 8px;
+  }
+  .show-btn:focus { outline: 3px solid rgba(156,198,219,0.25); }
+  
+  /* error boxes */
+  .err {
+    margin: 8px 0 6px 0;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .client-err { background: #fff4f2; color: #c23a2b; border: 1px solid #f4cfc9; }
+  .server-err { background: #fff7e6; color: #9a4a00; border: 1px solid #f1d7b8; }
+  
+  /* primary button */
+  .btn-primary {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 800;
+    font-size: 1rem;
+    color: #fff;
+    background: linear-gradient(180deg, #CF4B00, #b43a00);
+    cursor: pointer;
+    margin-top: 6px;
+    box-shadow: 0 10px 20px rgba(207,75,0,0.12);
+    transition: transform .12s ease, opacity .12s ease;
+  }
+  .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+  .btn-primary:hover:not(:disabled) { transform: translateY(-2px); }
+  
+  /* footer */
+  .signin-footer {
+    margin-top: 14px;
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    font-size: 0.95rem;
+    color: #666;
+  }
+  .link {
+    color: #CF4B00;
+    font-weight:800;
+    text-decoration:none;
+  }
+  .link:hover { text-decoration: underline; }
+  
+  /* responsive */
+  @media (max-width: 520px) {
+    .signin-card { padding: 18px; border-radius: 12px; }
+    .signin-title { font-size: 1.25rem; }
+    .input { font-size: 0.95rem; }
+  }
+  

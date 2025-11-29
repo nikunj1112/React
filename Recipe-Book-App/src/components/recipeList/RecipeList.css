@@ -1,0 +1,226 @@
+/* recipeList.css (UPDATED) */
+
+/* Variables */
+:root{
+    --accent: #CF4B00;
+    --muted: #DDBA7D;
+    --card-bg: #ffffff;
+    --shadow: 0 10px 28px rgba(15,15,15,0.08);
+    --glass: rgba(255,255,255,0.6);
+    --page-bg: #FBFBFC;
+    --max-width: 1200px;
+  
+    --card-radius: 14px;
+    --img-height: 160px;
+    --transition-fast: 180ms;
+    --transition-med: 360ms;
+  }
+  
+  /* Page container */
+  .recipes-page{
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 28px 18px 80px;
+
+    box-sizing: border-box;
+    min-height: calc(100vh - 80px);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    color: #222;
+  }
+  
+  /* Back button (first button inside container) */
+  .recipes-page > button:first-of-type,
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    transition: transform .14s ease, box-shadow .14s ease, opacity .14s ease;
+  }
+  .recipes-page > button:first-of-type:hover,
+  .back-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.16);
+  }
+  
+  /* focus state for accessibility */
+  .recipes-page > button:first-of-type:focus,
+  .back-button:focus,
+  .btn-small:focus {
+    outline: 3px solid rgba(156,198,219,0.35);
+    outline-offset: 2px;
+  }
+  
+  /* Loading / no data */
+  .center {
+    text-align: center;
+    color: #888;
+    padding: 26px 0;
+    font-size: 16px;
+  }
+  
+  /* Grid */
+  .cards-grid{
+    display:grid;
+    gap: 22px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    margin-top: 20px;
+    align-items: start;
+  }
+  
+  /* Card */
+  .recipe-card{
+    background: var(--card-bg);
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform var(--transition-fast) ease, box-shadow var(--transition-fast) ease;
+    display:flex;
+    flex-direction:column;
+    min-height:280px;
+  }
+  .recipe-card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 20px 44px rgba(15,15,15,0.09);
+  }
+  
+  /* Image wrapper (supports crossfade hover image) */
+  .img-wrap{
+    width:100%;
+    height: var(--img-height);
+    overflow:hidden;
+    background: linear-gradient(180deg,#f4f4f4,#efefef);
+    position:relative;
+    border-radius: 0;
+  }
+  
+  /* base image */
+  .recipe-img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    transition: transform var(--transition-med) cubic-bezier(.2,.9,.2,1),
+                opacity var(--transition-med) ease,
+                filter 240ms ease;
+    will-change: transform, opacity;
+  }
+  
+  /* main image layer */
+  .img-main {
+    position: relative;
+    z-index: 1;
+    opacity: 1;
+  }
+  
+  /* hover image layer (on top) */
+  .img-hover {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0;
+    transform: scale(1.02);
+    pointer-events: none;
+    transition: opacity var(--transition-med) ease, transform var(--transition-med) cubic-bezier(.2,.9,.2,1);
+  }
+  
+  /* visible hover image */
+  .img-hover.visible {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+  
+  /* subtle zoom when hovering img-wrap */
+  .img-wrap:hover .img-main {
+    transform: scale(1.03);
+    filter: brightness(1.02);
+  }
+  .img-wrap:hover .img-hover.visible {
+    transform: scale(1.06);
+  }
+  
+  /* Card body */
+  .card-body{
+    padding: 14px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    flex:1;
+  }
+  .card-body h3{
+    margin:0;
+    font-size:18px;
+    color: var(--accent);
+    font-weight:800;
+    letter-spacing:-0.2px;
+  }
+  .muted{
+    margin:0;
+    color: var(--muted);
+    font-weight:600;
+    font-size:13px;
+  }
+  .ing-preview{
+    margin:0;
+    color:#555;
+    font-size:14px;
+    flex:1;
+  }
+  
+  /* Buttons row */
+  .btn-row {
+    display:flex;
+    gap:8px;
+    margin-top:12px;
+    align-items:center;
+  }
+  
+  /* small buttons */
+  .btn-small{
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight:700;
+    font-size:13px;
+    background:#9CC6DB;
+    color: #042028;
+    transition: transform .12s ease, opacity .12s ease, box-shadow .12s ease;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.06);
+  }
+  .btn-small:hover{ transform: translateY(-2px); opacity:0.95; box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+  
+  /* danger */
+  .btn-danger{
+    background:#E24C4C;
+    color:#fff !important;
+  }
+  .btn-small[style] { /* keep inline styled Edit button readable */
+    color: #fff;
+  }
+  
+  /* small responsive tweaks */
+  @media (max-width: 900px){
+    .img-wrap{ height:150px; }
+    .card-body h3{ font-size:16px; }
+  }
+  
+  @media (max-width: 520px){
+    .recipes-page{ padding: 18px 12px 60px; }
+    .img-wrap{ height:140px; }
+    .card-body h3{ font-size:15px; }
+    .btn-small{ padding:7px 10px; font-size:12px; }
+    .recipes-page > button:first-of-type { padding: 8px 12px; font-size:14px; }
+  }
+  
+  /* Small util: keep images unselectable and not draggable to avoid flicker on mobile */
+  .recipe-img, .img-wrap img { user-select: none; -webkit-user-drag: none; -webkit-touch-callout: none; }
+  

@@ -1,12 +1,13 @@
-// src/store.js (यह कोड 100% सही है और काम करेगा)
-
+// src/store/store.js
 import { configureStore } from "@reduxjs/toolkit";
-import recipeReducer from "../slices/recipeSlice"; 
-import authReducer from "../slices/authSlice";    
+import recipeReducer from "../slices/recipeSlice";
+import authReducer from "../slices/authSlice";
 
-export default configureStore({
+const store = configureStore({
   reducer: {
-    recipe: recipeReducer, 
+    recipe: recipeReducer,
     auth: authReducer,
   },
 });
+
+export default store;

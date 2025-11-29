@@ -2,9 +2,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "http://localhost:3004/recipes";
+const API_URL = "http://localhost:3000/recipes"; 
 
-// --- Async Thunks ---
+// --------------------- FETCH ALL RECIPES ---------------------
 export const fetchRecipes = createAsyncThunk(
   "recipes/fetchRecipes",
   async () => {
@@ -13,14 +13,16 @@ export const fetchRecipes = createAsyncThunk(
   }
 );
 
+// --------------------- ADD RECIPE ---------------------
 export const addRecipe = createAsyncThunk(
   "recipes/addRecipe",
-  async (recipe) => {
-    const res = await axios.post(API_URL, recipe);
+  async (newRecipe) => {
+    const res = await axios.post(API_URL, newRecipe);
     return res.data;
   }
 );
 
+// --------------------- UPDATE RECIPE ---------------------
 export const updateRecipe = createAsyncThunk(
   "recipes/updateRecipe",
   async (recipe) => {
@@ -29,6 +31,7 @@ export const updateRecipe = createAsyncThunk(
   }
 );
 
+// --------------------- DELETE RECIPE ---------------------
 export const deleteRecipe = createAsyncThunk(
   "recipes/deleteRecipe",
   async (id) => {
@@ -37,46 +40,65 @@ export const deleteRecipe = createAsyncThunk(
   }
 );
 
-// --- Slice ---
+// ================= SLICE =================
 const recipeSlice = createSlice({
-  name: "recipes",
+  name: "recipe",
+
   initialState: {
     recipes: [],
     filteredRecipes: [],
     status: "idle",
     error: null,
-    filter: "All",
   },
+
   reducers: {
-    filterByCategory: (state, action) => {
-      const category = action.payload;
-      state.filteredRecipes =
-        category === "All"
-          ? state.recipes
-          : state.recipes.filter((r) => r.category === category);
-      state.filter = category;
+    filterByCategory(state, action) {
+      state.filteredRecipes = action.payload === "all"
+        ? state.recipes
+        : state.recipes.filter((r) => r.category === action.payload);
     },
   },
+
   extraReducers: (builder) => {
     builder
+
+      // ---------- Fetch ----------
+      .addCase(fetchRecipes.pending, (state) => {
+        state.status = "loading";
+      })
       .addCase(fetchRecipes.fulfilled, (state, action) => {
+        state.status = "succeeded";
         state.recipes = action.payload;
         state.filteredRecipes = action.payload;
       })
+      .addCase(fetchRecipes.rejected, (state) => {
+        state.status = "failed";
+        state.error = "Failed to fetch recipes from server";
+      })
+
+      // ---------- Add ----------
       .addCase(addRecipe.fulfilled, (state, action) => {
         state.recipes.push(action.payload);
         state.filteredRecipes.push(action.payload);
       })
+
+      // ---------- Update ----------
       .addCase(updateRecipe.fulfilled, (state, action) => {
-        const index = state.recipes.findIndex((r) => r.id === action.payload.id);
-        if (index !== -1) {
-          state.recipes[index] = action.payload;
-          state.filteredRecipes[index] = action.payload;
-        }
+        const updated = action.payload;
+        state.recipes = state.recipes.map((r) =>
+          r.id === updated.id ? updated : r
+        );
+        state.filteredRecipes = state.filteredRecipes.map((r) =>
+          r.id === updated.id ? updated : r
+        );
       })
+
+      // ---------- Delete ----------
       .addCase(deleteRecipe.fulfilled, (state, action) => {
         state.recipes = state.recipes.filter((r) => r.id !== action.payload);
-        state.filteredRecipes = state.filteredRecipes.filter((r) => r.id !== action.payload);
+        state.filteredRecipes = state.filteredRecipes.filter(
+          (r) => r.id !== action.payload
+        );
       });
   },
 });

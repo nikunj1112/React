@@ -1,66 +1,82 @@
 // src/App.jsx
-
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
+import { loadFromStorage } from "./slices/authSlice";
 
-// Components
-import Navbar from "./components/navbar/Navbar";
+import NavbarAndHome from "./components/navbar/Navbar";
 import RecipeList from "./components/recipeList/RecipeList";
 import RecipeForm from "./components/recipeForm/RecipeForm";
 import RecipeDetails from "./components/recipeDetails/RecipeDetails";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
-
-// Pages
-import Login from "./pages/signin/Signin";
-import Register from "./pages/register/Register";
+import RestrictedRoute from "./components/RestrictedRoute";
+import Signin from "./pages/Signin/Signin";
+import Register from "./pages/Register/Register";
 
 export default function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadFromStorage());
+  }, [dispatch]);
+
   return (
     <>
-      {/* Navbar हमेशा सबसे ऊपर */}
-      <Navbar />
+      <NavbarAndHome />
 
-      {/* Routes */}
       <Routes>
-        {/* ---------------- PUBLIC ROUTES ---------------- */}
-        <Route path="/" element={<RecipeList />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/recipes/:id" element={<RecipeDetails />} />
+        {/* When NOT logged in */}
+        <Route 
+          path="/login" 
+          element={
+            <RestrictedRoute>
+              <Signin />
+            </RestrictedRoute>
+          }
+        />
 
-        {/* ---------------- PROTECTED ROUTES ---------------- */}
-        <Route
-          path="/add"
+        <Route 
+          path="/register" 
+          element={
+            <RestrictedRoute>
+              <Register />
+            </RestrictedRoute>
+          }
+        />
+
+        {/* When logged in */}
+        <Route 
+          path="/add" 
           element={
             <PrivateRoute>
               <RecipeForm />
             </PrivateRoute>
           }
         />
-        <Route
-          path="/edit/:id"
+
+        <Route 
+          path="/recipes" 
           element={
             <PrivateRoute>
-              <RecipeForm isEditMode={true} /> {/* RecipeForm को Edit Mode में उपयोग */}
+              <RecipeList />
             </PrivateRoute>
           }
         />
 
-        {/* ---------------- 404 PAGE ---------------- */}
-        <Route
-          path="*"
+        <Route 
+          path="/recipes/:id" 
           element={
-            <h1
-              style={{
-                textAlign: "center",
-                marginTop: "50px",
-                color: "#CF4B00",
-              }}
-            >
-              404 | Page Not Found
-            </h1>
+            <PrivateRoute>
+              <RecipeDetails />
+            </PrivateRoute>
           }
         />
+
+        {/* IMPORTANT: KEEP ROOT BLANK, NO REDIRECT */}
+        <Route path="/" element={null} />
+
+        {/* Not found */}
+        <Route path="*" element={<div>Not Found</div>} />
       </Routes>
     </>
   );

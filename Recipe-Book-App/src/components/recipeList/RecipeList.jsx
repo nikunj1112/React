@@ -1,102 +1,113 @@
 // src/components/recipeList/RecipeList.jsx
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { fetchRecipes, filterByCategory } from '../../slices/recipeSlice';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchRecipes, deleteRecipe } from "../../slices/recipeSlice";
+import "./recipeList.css";
+import { useNavigate } from "react-router-dom";
 
-// Color Palette
-const COLORS = {
-    PrimaryOrange: "#CF4B00",
-    SoftBlue: "#9CC6DB",
-    MutedGold: "#DDBA7D",
-    Cream: "#FCF6D9",
-};
+/**
+ * Single Card component — handles hover preload + crossfade
+ */
+function RecipeCardSimple({ r, onView }) {
+  const [hover, setHover] = useState(false);
+  const [hoverLoaded, setHoverLoaded] = useState(false);
 
-// Mock Recipes (Fallback)
-const mockRecipe = {
-    id: 1,
-    title: "Spicy Paneer Tikka",
-    category: "Dinner",
-    time: "45 min",
-    imageUrl: "https://via.placeholder.com/300x200/CF4B00/FCF6D9?text=Paneer+Tikka",
-    rating: 4.5,
-};
-const mockRecipes = Array(6).fill(mockRecipe).map((r, i) => ({ ...r, id: i + 1, title: `Recipe Title ${i + 1}` }));
+  const mainSrc = r.image || r.imageUrl || "https://dummyimage.com/350x200/cccccc/000000&text=No+Image";
+  const hoverSrc = r.hoverImage || r.imageHoverUrl || r.hover || "";
+
+  // preload hover image when card mounts or when hoverSrc changes
+  useEffect(() => {
+    setHoverLoaded(false);
+    if (!hoverSrc) return;
+    const img = new Image();
+    img.src = hoverSrc;
+    img.onload = () => setHoverLoaded(true);
+    img.onerror = () => setHoverLoaded(false);
+    // no cleanup needed for preloaded Image
+  }, [hoverSrc]);
+
+  // decide whether to show hover image: only when hovered AND hover image loaded
+  const showHover = !!(hover && hoverSrc && hoverLoaded);
+
+  return (
+    <div
+      className="recipe-card"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      <div className="img-wrap" onClick={() => onView(r.id)} style={{ cursor: "pointer" }}>
+        <img src={mainSrc} alt={r.title} className="recipe-img img-main" draggable="false" />
+        {hoverSrc ? (
+          <img
+            src={hoverSrc}
+            alt={`${r.title} preview`}
+            className={`recipe-img img-hover ${showHover ? "visible" : ""}`}
+            draggable="false"
+            aria-hidden={!showHover}
+          />
+        ) : null}
+      </div>
+
+      <div className="card-body">
+        <h3>{r.title}</h3>
+        <p className="muted">{r.category}</p>
+        <p className="ing-preview">{(r.ingredients || []).slice(0, 3).join(", ")}</p>
+
+        <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
+          <button onClick={() => onView(r.id)} className="btn-small">View</button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function RecipeList() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    // ✅ FIX: Correct slice name
-    const recipeState = useSelector(state => state.recipe || {});
-    const filteredRecipes = recipeState.filteredRecipes || [];
-    const status = recipeState.status || 'idle';
-    const error = recipeState.error;
+  const { recipes, filteredRecipes, status } = useSelector((state) => state.recipe || {});
 
-    // Fallback to mock data if filteredRecipes empty
-    const recipesToDisplay = filteredRecipes.length > 0 ? filteredRecipes : mockRecipes;
+  // fetch recipes once
+  useEffect(() => {
+    dispatch(fetchRecipes());
+  }, [dispatch]);
 
-    useEffect(() => {
-        if (status === 'idle') {
-            dispatch(fetchRecipes());
-        }
-    }, [dispatch, status]);
+  const list = filteredRecipes && filteredRecipes.length > 0 ? filteredRecipes : recipes || [];
 
-    // --- Loading & Error States ---
-    if (status === 'loading') {
-        return (
-            <div style={{ textAlign: 'center', padding: '50px', color: COLORS.SoftBlue }}>
-                <p>Loading recipes... ⏳</p>
-            </div>
-        );
+  const handleDelete = async (id) => {
+    if (!window.confirm("Delete this recipe?")) return;
+    try {
+      await dispatch(deleteRecipe(id)).unwrap();
+    } catch (err) {
+      alert("Delete failed!");
     }
+  };
 
-    if (status === 'failed') {
-        return (
-            <div style={{ textAlign: 'center', padding: '50px', color: COLORS.PrimaryOrange }}>
-                <p>Error loading recipes: {error} ❌</p>
-            </div>
-        );
-    }
+  return (
+    <div className="recipes-page container">
+  <button
+  onClick={() => navigate("/")}
+  className="back-button"
+>
+  ← Back
+</button>
 
-    if (recipesToDisplay.length === 0) {
-        return (
-            <div style={{ textAlign: 'center', padding: '50px', color: COLORS.MutedGold }}>
-                <p>No recipes found for this filter. Try a different category! 🤔</p>
-            </div>
-        );
-    }
 
-    // --- Recipe Grid ---
-    return (
-        <div style={{ backgroundColor: COLORS.Cream, padding: '50px 20px' }}>
-            <div className="container">
-                <h2 style={{ color: COLORS.PrimaryOrange, marginBottom: '30px' }}>
-                    Explore Delicious Recipes
-                </h2>
+      {status === "loading" && <p className="center">Loading...</p>}
 
-                <div className="recipe-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
-                    {recipesToDisplay.map((recipe) => (
-                        <Link key={recipe.id} to={`/recipes/${recipe.id}`} style={{ textDecoration: 'none' }}>
-                            <div style={{ border: `1px solid ${COLORS.SoftBlue}`, borderRadius: '8px', overflow: 'hidden', background: '#fff', transition: 'transform 0.2s' }}
-                                 className="recipe-card"
-                            >
-                                <img src={recipe.imageUrl} alt={recipe.title} style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
-                                <div style={{ padding: '15px' }}>
-                                    <h3 style={{ color: COLORS.PrimaryOrange, marginBottom: '10px' }}>{recipe.title}</h3>
-                                    <p style={{ color: COLORS.MutedGold, marginBottom: '10px' }}>Category: {recipe.category}</p>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                                        <span>🕒 {recipe.time}</span>
-                                        <span style={{ color: COLORS.PrimaryOrange }}>⭐ {recipe.rating}</span>
-                                    </div>
-                                    <button style={{ width: '100%', padding: '8px', backgroundColor: COLORS.SoftBlue, color: COLORS.Cream, border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
-                                        View Recipe
-                                    </button>
-                                </div>
-                            </div>
-                        </Link>
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
+      <div className="cards-grid">
+        {list.length === 0 ? (
+          <p className="center">No Recipes Found</p>
+        ) : (
+          list.map((r) => (
+            <RecipeCardSimple
+              key={r.id}
+              r={r}
+              onView={(id) => navigate(`/recipes/${id}`)}
+            />
+          ))
+        )}
+      </div>
+    </div>
+  );
 }
