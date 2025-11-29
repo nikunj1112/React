@@ -38,6 +38,30 @@ All recipe operations are managed via asynchronous **Redux Thunks**, interacting
 
 ---
 
+## 🔗 Live Application / Demo
+
+**View the Live Application Here:**
+
+---
+
+## 📽️ Demo & Screenshots
+
+https://github.com/user-attachments/assets/65f3e15d-2ab3-4620-a302-840f782d6a7b
+
+,
+
+<img width="1455" height="864" alt="Screenshot 2025-11-30 at 1 39 37 AM" src="https://github.com/user-attachments/assets/0cf9cb41-28bd-4eac-9ec9-4459ba5d156c" />
+<img width="1455" height="864" alt="Screenshot 2025-11-30 at 1 39 24 AM" src="https://github.com/user-attachments/assets/330bc51b-85c7-4960-a435-58d4f74f3855" />
+<img width="1455" height="864" alt="Screenshot 2025-11-30 at 1 39 09 AM" src="https://github.com/user-attachments/assets/ef6f1e0a-e287-410b-a532-f05b3227c7b9" />
+<img width="1455" height="864" alt="Screenshot 2025-11-30 at 1 38 50 AM" src="https://github.com/user-attachments/assets/686d0384-fda5-44d6-a7f5-a0fa1f824e79" />
+<img width="1455" height="864" alt="Screenshot 2025-11-30 at 1 38 35 AM" src="https://github.com/user-attachments/assets/234b9480-c93a-49a7-999b-e5127a635109" />
+<img width="1455" height="864" alt="Screenshot 2025-11-30 at 1 37 39 AM" src="https://github.com/user-attachments/assets/5f9a6001-b532-497f-a905-5a86f92d2d94" />
+
+
+
+
+---
+
 ## 🛠️ Technology Stack 🚀
 
 | Category | Technology | Purpose |
