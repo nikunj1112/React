@@ -10,8 +10,8 @@ import RecipeForm from "./components/recipeForm/RecipeForm";
 import RecipeDetails from "./components/recipeDetails/RecipeDetails";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
 import RestrictedRoute from "./components/RestrictedRoute";
-import Signin from "./pages/Signin/Signin";
-import Register from "./pages/Register/Register";
+import Signin from "./pages/signin/Signin";
+import Register from "./pages/register/Register";
 
 export default function App() {
   const dispatch = useDispatch();

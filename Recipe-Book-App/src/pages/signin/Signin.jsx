@@ -18,7 +18,7 @@ export default function Signin() {
   // If already logged in → don't show login form
   if (isAuthenticated) {
     return <Navigate to="/" replace />;
-  }
+  }   
 
   const from = (location.state && location.state.from && location.state.from.pathname) ? location.state.from.pathname : "/";
 
