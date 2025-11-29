@@ -40,6 +40,79 @@ export const deleteRecipe = createAsyncThunk(
   }
 );
 
+/**
+ * applyFilters(recipes, filters)
+ * - search: matches title or ingredients (case-insensitive)
+ * - category: exact match (or "All")
+ * - dietary: exact match (or "All"), treat missing dietary as "None"
+ * - sortBy: 'date_desc' | 'date_asc' | 'name_asc' | 'name_desc'
+ */
+function applyFilters(recipes = [], filters = {}) {
+  const {
+    search = "",
+    category = "All",
+    dietary = "All",
+    sortBy = "date_desc",
+  } = filters;
+
+  let out = Array.isArray(recipes) ? [...recipes] : [];
+
+  // SEARCH (title or ingredients)
+  const q = (search || "").trim().toLowerCase();
+  if (q) {
+    out = out.filter((r) => {
+      const title = (r.title || "").toString().toLowerCase();
+      const ingredients = Array.isArray(r.ingredients)
+        ? r.ingredients.join(" ").toLowerCase()
+        : (r.ingredients || "").toString().toLowerCase();
+      return title.includes(q) || ingredients.includes(q);
+    });
+  }
+
+  // CATEGORY filter
+  if (category && category !== "All" && category !== "all") {
+    out = out.filter((r) => (r.category || "") === category);
+  }
+
+  // DIETARY filter
+  if (dietary && dietary !== "All" && dietary !== "all") {
+    out = out.filter((r) => {
+      const d = (r.dietary || "None").toString();
+      return d === dietary;
+    });
+  }
+
+  // SORTING
+  const compareName = (a, b) => {
+    const A = (a.title || "").toString();
+    const B = (b.title || "").toString();
+    return A.localeCompare(B);
+  };
+  const compareDate = (a, b) => {
+    const da = new Date(a.dateAdded || a.createdAt || 0).getTime();
+    const db = new Date(b.dateAdded || b.createdAt || 0).getTime();
+    return da - db;
+  };
+
+  switch (sortBy) {
+    case "name_asc":
+      out.sort(compareName);
+      break;
+    case "name_desc":
+      out.sort((a, b) => -compareName(a, b));
+      break;
+    case "date_asc":
+      out.sort(compareDate);
+      break;
+    case "date_desc":
+    default:
+      out.sort((a, b) => -compareDate(a, b));
+      break;
+  }
+
+  return out;
+}
+
 // ================= SLICE =================
 const recipeSlice = createSlice({
   name: "recipe",
@@ -49,13 +122,43 @@ const recipeSlice = createSlice({
     filteredRecipes: [],
     status: "idle",
     error: null,
+    filters: {
+      search: "",
+      category: "All",
+      dietary: "All",
+      sortBy: "date_desc",
+    },
   },
 
   reducers: {
-    filterByCategory(state, action) {
-      state.filteredRecipes = action.payload === "all"
-        ? state.recipes
-        : state.recipes.filter((r) => r.category === action.payload);
+    // set search string and recompute filteredRecipes
+    setSearch(state, action) {
+      state.filters.search = action.payload;
+      state.filteredRecipes = applyFilters(state.recipes, state.filters);
+    },
+
+    // set category and recompute filteredRecipes
+    setCategoryFilter(state, action) {
+      state.filters.category = action.payload;
+      state.filteredRecipes = applyFilters(state.recipes, state.filters);
+    },
+
+    // set dietary filter
+    setDietaryFilter(state, action) {
+      state.filters.dietary = action.payload;
+      state.filteredRecipes = applyFilters(state.recipes, state.filters);
+    },
+
+    // set sorting
+    setSortBy(state, action) {
+      state.filters.sortBy = action.payload;
+      state.filteredRecipes = applyFilters(state.recipes, state.filters);
+    },
+
+    // optional: clear filters
+    clearFilters(state) {
+      state.filters = { search: "", category: "All", dietary: "All", sortBy: "date_desc" };
+      state.filteredRecipes = applyFilters(state.recipes, state.filters);
     },
   },
 
@@ -68,18 +171,19 @@ const recipeSlice = createSlice({
       })
       .addCase(fetchRecipes.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.recipes = action.payload;
-        state.filteredRecipes = action.payload;
+        state.recipes = action.payload || [];
+        // compute filtered list using current filters
+        state.filteredRecipes = applyFilters(state.recipes, state.filters);
       })
-      .addCase(fetchRecipes.rejected, (state) => {
+      .addCase(fetchRecipes.rejected, (state, action) => {
         state.status = "failed";
-        state.error = "Failed to fetch recipes from server";
+        state.error = action.error?.message || "Failed to fetch recipes from server";
       })
 
       // ---------- Add ----------
       .addCase(addRecipe.fulfilled, (state, action) => {
         state.recipes.push(action.payload);
-        state.filteredRecipes.push(action.payload);
+        state.filteredRecipes = applyFilters(state.recipes, state.filters);
       })
 
       // ---------- Update ----------
@@ -88,20 +192,22 @@ const recipeSlice = createSlice({
         state.recipes = state.recipes.map((r) =>
           r.id === updated.id ? updated : r
         );
-        state.filteredRecipes = state.filteredRecipes.map((r) =>
-          r.id === updated.id ? updated : r
-        );
+        state.filteredRecipes = applyFilters(state.recipes, state.filters);
       })
 
       // ---------- Delete ----------
       .addCase(deleteRecipe.fulfilled, (state, action) => {
         state.recipes = state.recipes.filter((r) => r.id !== action.payload);
-        state.filteredRecipes = state.filteredRecipes.filter(
-          (r) => r.id !== action.payload
-        );
+        state.filteredRecipes = applyFilters(state.recipes, state.filters);
       });
   },
 });
 
-export const { filterByCategory } = recipeSlice.actions;
+export const {
+  setSearch,
+  setCategoryFilter,
+  setDietaryFilter,
+  setSortBy,
+  clearFilters,
+} = recipeSlice.actions;
 export default recipeSlice.reducer;

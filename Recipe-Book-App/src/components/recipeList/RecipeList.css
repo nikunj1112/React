@@ -1,35 +1,36 @@
-/* recipeList.css (UPDATED) */
+/* recipeList.css (for current RecipeList.jsx) */
 
-/* Variables */
+/* ---- Variables ---- */
 :root{
     --accent: #CF4B00;
     --muted: #DDBA7D;
     --card-bg: #ffffff;
     --shadow: 0 10px 28px rgba(15,15,15,0.08);
-    --glass: rgba(255,255,255,0.6);
     --page-bg: #FBFBFC;
-    --max-width: 1200px;
   
     --card-radius: 14px;
     --img-height: 160px;
     --transition-fast: 180ms;
     --transition-med: 360ms;
+  
+    --input-border: rgba(0,0,0,0.06);
+    --surface-shadow: 0 6px 18px rgba(0,0,0,0.06);
   }
   
-  /* Page container */
+  /* ---- Page container ---- */
   .recipes-page{
     width: 100%;
-    max-width: var(--max-width);
+    max-width: 1200px;
     margin: 0 auto;
     padding: 28px 18px 80px;
-
     box-sizing: border-box;
     min-height: calc(100vh - 80px);
     font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     color: #222;
+    /* background: var(--page-bg); */
   }
   
-  /* Back button (first button inside container) */
+  /* ---- Back button ---- */
   .recipes-page > button:first-of-type,
   .back-button {
     display: inline-flex;
@@ -51,15 +52,102 @@
     box-shadow: 0 12px 30px rgba(0,0,0,0.16);
   }
   
-  /* focus state for accessibility */
+  /* focus states */
   .recipes-page > button:first-of-type:focus,
   .back-button:focus,
-  .btn-small:focus {
+  .btn-small:focus,
+  .compact-search-input:focus,
+  .compact-select:focus,
+  .compact-clear-btn:focus {
     outline: 3px solid rgba(156,198,219,0.35);
     outline-offset: 2px;
   }
   
-  /* Loading / no data */
+  /* ---- Filter bar (search + select + clear) ---- */
+  .compact-filter-bar {
+    display: flex;
+    gap: 12px;
+    margin: 18px 0;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  /* SEARCH input */
+  .compact-search-input {
+    border: 1px solid var(--input-border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    min-width: 220px;
+    box-shadow: var(--surface-shadow);
+    transition: box-shadow .12s ease, transform .12s ease;
+    color: #dc8140;
+    font-weight: 600;
+  }
+  .compact-search-input::placeholder { color: #9aa0a6; font-weight:500; }
+  .compact-search-input:focus {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    outline: none;
+    transform: translateY(-1px);
+    
+  }
+  
+  /* SELECT (compact) */
+  .compact-select {
+    display: inline-block;
+    border-radius: 12px;
+    padding: 8px 12px;
+    background: #ffffff;
+    color: var(--accent);
+    border: 1px solid var(--input-border);
+    box-shadow: var(--surface-shadow);
+    min-width: 190px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .12s ease, box-shadow .12s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  
+  /* A small wrapper to allow a custom arrow if needed; if using plain <select> this still looks good */
+  .select-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+  .select-wrapper::after {
+    content: "▾";
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: rgba(0,0,0,0.5);
+    font-size: 14px;
+  }
+  
+  /* Options visual */
+  .compact-select option {
+    font-weight: 600;
+  }
+  
+  /* Clear button */
+  .compact-clear-btn {
+    background: var(--accent);
+    border: 1px solid var(--input-border);
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--card-bg);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .compact-clear-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  }
+  
+  /* ---- Loading / empty text ---- */
   .center {
     text-align: center;
     color: #888;
@@ -67,7 +155,7 @@
     font-size: 16px;
   }
   
-  /* Grid */
+  /* ---- Grid and cards ---- */
   .cards-grid{
     display:grid;
     gap: 22px;
@@ -92,7 +180,7 @@
     box-shadow: 0 20px 44px rgba(15,15,15,0.09);
   }
   
-  /* Image wrapper (supports crossfade hover image) */
+  /* Image wrapper */
   .img-wrap{
     width:100%;
     height: var(--img-height);
@@ -102,7 +190,7 @@
     border-radius: 0;
   }
   
-  /* base image */
+  /* Image layers */
   .recipe-img {
     width:100%;
     height:100%;
@@ -113,15 +201,7 @@
                 filter 240ms ease;
     will-change: transform, opacity;
   }
-  
-  /* main image layer */
-  .img-main {
-    position: relative;
-    z-index: 1;
-    opacity: 1;
-  }
-  
-  /* hover image layer (on top) */
+  .img-main { position: relative; z-index: 1; opacity: 1; }
   .img-hover {
     position: absolute;
     inset: 0;
@@ -131,21 +211,11 @@
     pointer-events: none;
     transition: opacity var(--transition-med) ease, transform var(--transition-med) cubic-bezier(.2,.9,.2,1);
   }
+  .img-hover.visible { opacity: 1; transform: scale(1.04); }
   
-  /* visible hover image */
-  .img-hover.visible {
-    opacity: 1;
-    transform: scale(1.04);
-  }
-  
-  /* subtle zoom when hovering img-wrap */
-  .img-wrap:hover .img-main {
-    transform: scale(1.03);
-    filter: brightness(1.02);
-  }
-  .img-wrap:hover .img-hover.visible {
-    transform: scale(1.06);
-  }
+  /* Hover effects */
+  .img-wrap:hover .img-main { transform: scale(1.03); filter: brightness(1.02); }
+  .img-wrap:hover .img-hover.visible { transform: scale(1.06); }
   
   /* Card body */
   .card-body{
@@ -175,15 +245,8 @@
     flex:1;
   }
   
-  /* Buttons row */
-  .btn-row {
-    display:flex;
-    gap:8px;
-    margin-top:12px;
-    align-items:center;
-  }
-  
-  /* small buttons */
+  /* Buttons */
+  .btn-row { display:flex; gap:8px; margin-top:12px; align-items:center; }
   .btn-small{
     border: none;
     padding: 8px 12px;
@@ -196,18 +259,10 @@
     transition: transform .12s ease, opacity .12s ease, box-shadow .12s ease;
     box-shadow: 0 6px 12px rgba(0,0,0,0.06);
   }
-  .btn-small:hover{ transform: translateY(-2px); opacity:0.95; box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+  .btn-small:hover { transform: translateY(-2px); opacity:0.95; box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+  .btn-danger { background:#E24C4C; color:#fff !important; }
   
-  /* danger */
-  .btn-danger{
-    background:#E24C4C;
-    color:#fff !important;
-  }
-  .btn-small[style] { /* keep inline styled Edit button readable */
-    color: #fff;
-  }
-  
-  /* small responsive tweaks */
+  /* ---- Small responsive tweaks ---- */
   @media (max-width: 900px){
     .img-wrap{ height:150px; }
     .card-body h3{ font-size:16px; }
@@ -221,6 +276,10 @@
     .recipes-page > button:first-of-type { padding: 8px 12px; font-size:14px; }
   }
   
-  /* Small util: keep images unselectable and not draggable to avoid flicker on mobile */
+  /* ---- Utilities ---- */
+  /* prevent image dragging/selecting flicker on mobile */
   .recipe-img, .img-wrap img { user-select: none; -webkit-user-drag: none; -webkit-touch-callout: none; }
+  
+  /* hide default select arrow in IE */
+  .compact-select::-ms-expand { display: none; }
   

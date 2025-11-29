@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../slices/authSlice";
-import { filterByCategory, fetchRecipes } from "../../slices/recipeSlice";
+// switched to new action name setCategoryFilter
+import { fetchRecipes, setCategoryFilter } from "../../slices/recipeSlice";
 import "./navbar.css";
 
 // Put your logo in src/assets/logo.png (or update the path below)
@@ -32,7 +33,8 @@ export default function NavbarAndHome() {
     } catch (err) {
       console.error("fetchRecipes error:", err);
     }
-    dispatch(filterByCategory("All"));
+    // use new action
+    dispatch(setCategoryFilter("All"));
     closeMenus();
     navigate("/recipes");
   };
@@ -73,7 +75,6 @@ export default function NavbarAndHome() {
               height: 150,
               objectFit: "cover",
               borderRadius: 12,
-              // boxShadow: "0 6px 18px rgba(0,0,0,0.12)"
             }}
           />
         </div>
@@ -152,7 +153,8 @@ export default function NavbarAndHome() {
                           className="dropdown-item-custom"
                           style={{ color: "#CF4B00" }}
                           onClick={() => {
-                            dispatch(filterByCategory(cat));
+                            // use new action to set the category filter
+                            dispatch(setCategoryFilter(cat));
                             closeMenus();
                             navigate("/recipes");
                           }}
