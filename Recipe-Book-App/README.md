@@ -31,7 +31,7 @@ This application is built with a focus on a smooth user experience, featuring in
 | **Routing** | **React Router DOM v6** | Declarative navigation and robust route protection. |
 | **API Interaction** | **Axios** | Promise-based HTTP client for data fetching and manipulation. 🌐 |
 | **Backend Simulation**| **JSON Server (External)** | Used to simulate a REST API endpoint (`http://localhost:3000/recipes`) for persistence. 🧱 |
-| **UI/Styling** | **Standard CSS Modules** | **Bbootstrap 5** |  Component-specific styling and responsiveness. 🎨 |
+| **UI/Styling** | **Standard CSS Modules** ,  **Bbootstrap 5**  |  Component-specific styling and responsiveness. 🎨 |
 
 
 
