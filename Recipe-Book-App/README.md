@@ -50,7 +50,8 @@ https://github.com/user-attachments/assets/65f3e15d-2ab3-4620-a302-840f782d6a7b
 
 ,
 
-<img width="500" height="400" alt="Screenshot 2025-12-01 at 11 15 10 AM" src="https://github.com/user-attachments/assets/467e61b5-a4f4-47a8-bead-516664650558" /><img width="500" height="400" alt="Screenshot 2025-12-01 at 11 14 08 AM" src="https://github.com/user-attachments/assets/cd25986b-b535-44f8-b126-8c4e885a9dee" />
+<img width="500" height="400" alt="Screenshot 2025-12-01 at 11 15 10 AM" src="https://github.com/user-attachments/assets/467e61b5-a4f4-47a8-bead-516664650558" />
+<img width="500" height="400" alt="Screenshot 2025-12-01 at 11 14 08 AM" src="https://github.com/user-attachments/assets/cd25986b-b535-44f8-b126-8c4e885a9dee" />
 <img width="600" height="400" alt="Screenshot 2025-12-01 at 11 14 27 AM" src="https://github.com/user-attachments/assets/c02c9185-5564-429a-b55f-3efb371f8ef7" />
 <img width="600" height="400" alt="Screenshot 2025-12-01 at 11 13 56 AM" src="https://github.com/user-attachments/assets/33376c7c-54b7-4344-be82-a98c38fbdc09" />
 <img width="600" height="400" alt="Screenshot 2025-12-01 at 11 13 15 AM" src="https://github.com/user-attachments/assets/293e36c6-79e7-4f2e-a1a9-1d0c7f7210de" />
