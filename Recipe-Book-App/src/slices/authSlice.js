@@ -6,9 +6,6 @@ const REGISTER_KEY = "cookify_registered_v1";
 
 /**
  * fakeRegister
- * - Simulates user registration
- * - Persists registered user info to localStorage (REGISTER_KEY)
- * - DOES NOT log the user in
  */
 export const fakeRegister = createAsyncThunk(
   "auth/fakeRegister",
@@ -25,13 +22,13 @@ export const fakeRegister = createAsyncThunk(
       id: Date.now(),
       name,
       email,
-      password, // NOTE: plain text for dev only
+      password,
       createdAt: new Date().toISOString(),
     };
 
     try {
       localStorage.setItem(REGISTER_KEY, JSON.stringify(registered));
-      await new Promise((res) => setTimeout(res, 250)); // simulate delay
+      await new Promise((res) => setTimeout(res, 250));
       return registered;
     } catch (err) {
       return thunkAPI.rejectWithValue("Failed to persist registration");
@@ -41,8 +38,6 @@ export const fakeRegister = createAsyncThunk(
 
 /**
  * fakeLogin
- * - Validates credentials against REGISTER_KEY entry
- * - On success persists auth payload into STORAGE_KEY and returns payload
  */
 export const fakeLogin = createAsyncThunk(
   "auth/fakeLogin",
@@ -69,7 +64,7 @@ export const fakeLogin = createAsyncThunk(
 
       // persist auth
       localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-      await new Promise((res) => setTimeout(res, 250)); // simulate delay
+      await new Promise((res) => setTimeout(res, 250));
 
       return payload;
     } catch (err) {
@@ -118,7 +113,6 @@ const authSlice = createSlice({
       .addCase(fakeRegister.fulfilled, (s) => {
         s.status = "succeeded";
         s.error = null;
-        // note: registration DOES NOT log the user in
       })
       .addCase(fakeRegister.rejected, (s, a) => {
         s.status = "failed";
@@ -159,7 +153,7 @@ export const loadFromStorage = () => (dispatch) => {
     if (!raw) return;
     const parsed = JSON.parse(raw);
     if (parsed && parsed.token) {
-      // dispatch fulfilled action to populate store
+      // dispatch fulfilled to populate store
       dispatch({ type: fakeLogin.fulfilled.type, payload: parsed });
     }
   } catch (e) {

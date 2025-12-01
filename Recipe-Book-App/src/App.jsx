@@ -1,7 +1,7 @@
 // src/App.jsx
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { loadFromStorage } from "./slices/authSlice";
 
 import NavbarAndHome from "./components/navbar/Navbar";
@@ -10,11 +10,14 @@ import RecipeForm from "./components/recipeForm/RecipeForm";
 import RecipeDetails from "./components/recipeDetails/RecipeDetails";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
 import RestrictedRoute from "./components/RestrictedRoute";
-import Signin from "./pages/signin/Signin";
-import Register from "./pages/register/Register";
+
+import Signin from "./pages/Signin/Signin";
+import Register from "./pages/Register/Register";
+import FirstPage from "./components/firstPage/FirstPage";
 
 export default function App() {
   const dispatch = useDispatch();
+  const { isAuthenticated } = useSelector((s) => s.auth || {});
 
   useEffect(() => {
     dispatch(loadFromStorage());
@@ -22,21 +25,22 @@ export default function App() {
 
   return (
     <>
+      {/* NAVBAR — ALWAYS RENDER (no condition) */}
       <NavbarAndHome />
 
       <Routes>
-        {/* When NOT logged in */}
-        <Route 
-          path="/login" 
+        <Route path="/" element={<FirstPage />} />
+
+        <Route
+          path="/login"
           element={
             <RestrictedRoute>
               <Signin />
             </RestrictedRoute>
           }
         />
-
-        <Route 
-          path="/register" 
+        <Route
+          path="/register"
           element={
             <RestrictedRoute>
               <Register />
@@ -44,27 +48,24 @@ export default function App() {
           }
         />
 
-        {/* When logged in */}
-        <Route 
-          path="/add" 
+        <Route
+          path="/add"
           element={
             <PrivateRoute>
               <RecipeForm />
             </PrivateRoute>
           }
         />
-
-        <Route 
-          path="/recipes" 
+        <Route
+          path="/recipes"
           element={
             <PrivateRoute>
               <RecipeList />
             </PrivateRoute>
           }
         />
-
-        <Route 
-          path="/recipes/:id" 
+        <Route
+          path="/recipes/:id"
           element={
             <PrivateRoute>
               <RecipeDetails />
@@ -72,11 +73,7 @@ export default function App() {
           }
         />
 
-        {/* IMPORTANT: KEEP ROOT BLANK, NO REDIRECT */}
-        <Route path="/" element={null} />
-
-        {/* Not found */}
-        <Route path="*" element={<div>Not Found</div>} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>
   );

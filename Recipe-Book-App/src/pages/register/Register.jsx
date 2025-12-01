@@ -1,7 +1,7 @@
 // src/pages/Register/Register.jsx
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// NOTE: use fakeRegister (register does NOT log the user in)
+// NOTE: register does NOT log the user in
 import { fakeRegister } from "../../slices/authSlice";
 import { Navigate, useLocation, useNavigate, Link } from "react-router-dom";
 import "./Register.css";
@@ -20,10 +20,8 @@ export default function Register() {
 
   // If already logged in, don't allow visiting register
   if (isAuthenticated) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/recipes" replace />;
   }
-
-  const from = (location.state && location.state.from) || { pathname: "/login" };
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -51,27 +49,22 @@ export default function Register() {
         password: form.password,
       })).unwrap();
 
-      // Show a success message (optional) then redirect to login
-      // You can replace alert with a toast if you have one
+      // Show success then redirect to login
       alert("Account created successfully! Please login.");
-
-      // Redirect to login page; replace so back button doesn't return to register
-      navigate(from.pathname || "/login", { replace: true });
+      navigate("/login", { replace: true });
     } catch (err) {
       console.error("Register failed:", err);
-      // error is also available in slice.state -> will show below if present
+      // error will be shown below if present
     }
   };
 
   return (
     <div className="register-page">
       <div className="register-card">
-
         <h2 className="register-title">Create Your Account</h2>
         <p className="register-sub">Join Cookify & save your delicious recipes!</p>
 
         <form onSubmit={handleSubmit} className="register-form">
-
           <div className="input-group">
             <label>Full Name</label>
             <input
@@ -125,7 +118,6 @@ export default function Register() {
             Already have an account?{" "}
             <Link to="/login" className="register-link">Login</Link>
           </p>
-
         </form>
       </div>
     </div>

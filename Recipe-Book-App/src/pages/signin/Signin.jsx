@@ -15,11 +15,12 @@ export default function Signin() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // If already logged in → don't show login form
+  // If already logged in → don't show login form; go to app
   if (isAuthenticated) {
     return <Navigate to="/" replace />;
-  }   
+  }
 
+  // Where to go after login (default to /recipes)
   const from = (location.state && location.state.from && location.state.from.pathname) ? location.state.from.pathname : "/";
 
   const validate = () => {
@@ -28,7 +29,6 @@ export default function Signin() {
       setClientError("Please fill both email and password.");
       return false;
     }
-    // simple email check
     const re = /\S+@\S+\.\S+/;
     if (!re.test(email.trim())) {
       setClientError("Please enter a valid email address.");
@@ -43,10 +43,10 @@ export default function Signin() {
 
     try {
       await dispatch(fakeLogin({ email: email.trim(), password })).unwrap();
-      // On success: go to requested page or home. replace so back doesn't go to login.
+      // On success: navigate to requested page or /recipes
       navigate(from || "/", { replace: true });
     } catch (err) {
-      // fakeLogin sets error into slice; console log for debugging
+      // fakeLogin sets error into slice; console for debug
       console.error("Login failed:", err);
     }
   };

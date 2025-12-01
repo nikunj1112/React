@@ -1,4 +1,5 @@
-// src/components/recipeDetails/RecipeDetails.jsx
+
+/* File: src/components/recipeDetails/RecipeDetails.jsx */
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,9 +19,7 @@ export default function RecipeDetails() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [isHover, setIsHover] = useState(false);
 
-  // preload state to know when hover image is loaded
   const [hoverLoaded, setHoverLoaded] = useState(false);
-
   const hoverImgRef = useRef(null);
 
   const [form, setForm] = useState({
@@ -32,7 +31,6 @@ export default function RecipeDetails() {
     imageHoverUrl: "",
     time: "30 min",
     rating: 5,
-    servings: 2,
     difficulty: "Easy",
   });
 
@@ -53,13 +51,11 @@ export default function RecipeDetails() {
         imageHoverUrl: recipe.imageHoverUrl || recipe.hoverImage || "",
         time: recipe.time || "30 min",
         rating: recipe.rating ?? 5,
-        servings: recipe.servings ?? 2,
         difficulty: recipe.difficulty || "Easy",
       });
     }
   }, [recipe]);
 
-  // preload hover image whenever url changes
   useEffect(() => {
     setHoverLoaded(false);
     const url = form.imageHoverUrl;
@@ -76,10 +72,7 @@ export default function RecipeDetails() {
       hoverImgRef.current = null;
     };
 
-    // cleanup not really needed for Image but keep reference null
-    return () => {
-      // no-op
-    };
+    return () => {};
   }, [form.imageHoverUrl]);
 
   if (status === "loading") {
@@ -111,7 +104,6 @@ export default function RecipeDetails() {
       imageHoverUrl: form.imageHoverUrl.trim(),
       time: form.time,
       rating: Number(form.rating),
-      servings: Number(form.servings),
       difficulty: form.difficulty,
     };
 
@@ -145,7 +137,6 @@ export default function RecipeDetails() {
     }
   };
 
-  // When hovering, if hover image exists and loaded => show hover layer (crossfade)
   const showHoverLayer = Boolean(form.imageHoverUrl && hoverLoaded && isHover);
 
   return (
@@ -158,7 +149,6 @@ export default function RecipeDetails() {
         onMouseLeave={() => setIsHover(false)}
         aria-hidden="false"
       >
-        {/* main image (base) */}
         <img
           className="recipe-image img-main"
           src={form.imageUrl}
@@ -166,7 +156,6 @@ export default function RecipeDetails() {
           draggable="false"
         />
 
-        {/* hover image (crossfade) - only render when hoverUrl present */}
         {form.imageHoverUrl ? (
           <img
             className={`recipe-image img-hover ${showHoverLayer ? "visible" : ""}`}
@@ -204,62 +193,87 @@ export default function RecipeDetails() {
       ) : (
         <>
           <div className="edit-form">
-            <input name="title" value={form.title} onChange={handleChange} placeholder="Title" />
 
-            <select name="category" value={form.category} onChange={handleChange}>
-              <option>Breakfast</option>
-              <option>Lunch</option>
-              <option>Dinner</option>
-              <option>Snacks</option>
-              <option>Dessert</option>
-              <option>Drinks</option>
-            </select>
+  <div className="input-group">
+    <label>Title</label>
+    <input
+      name="title"
+      value={form.title}
+      onChange={handleChange}
+      placeholder="Enter recipe title"
+      className="styled-input"
+    />
+  </div>
 
-      
+  <select name="category" value={form.category} onChange={handleChange}>
+    <option>Breakfast</option>
+    <option>Lunch</option>
+    <option>Dinner</option>
+    <option>Snacks</option>
+    <option>Dessert</option>
+    <option>Drinks</option>
+  </select>
 
-            <select name="rating" value={form.rating} onChange={handleChange}>
-              <option value="1">1 ⭐</option>
-              <option value="2">2 ⭐⭐</option>
-              <option value="3">3 ⭐⭐⭐</option>
-              <option value="4">4 ⭐⭐⭐⭐</option>
-              <option value="5">5 ⭐⭐⭐⭐⭐</option>
-            </select>
+  <select name="rating" value={form.rating} onChange={handleChange}>
+    <option value="1">1 ⭐</option>
+    <option value="2">2 ⭐⭐</option>
+    <option value="3">3 ⭐⭐⭐</option>
+    <option value="4">4 ⭐⭐⭐⭐</option>
+    <option value="5">5 ⭐⭐⭐⭐⭐</option>
+  </select>
 
-            <select name="difficulty" value={form.difficulty} onChange={handleChange}>
-              <option>Easy</option>
-              <option>Medium</option>
-              <option>Hard</option>
-            </select>
+  <select name="difficulty" value={form.difficulty} onChange={handleChange}>
+    <option>Easy</option>
+    <option>Medium</option>
+    <option>Hard</option>
+  </select>
 
-            <input name="servings" type="number" min="1" value={form.servings} onChange={handleChange} placeholder="Servings" />
+  <textarea
+    name="ingredients"
+    value={form.ingredients}
+    onChange={handleChange}
+    placeholder="Ingredients (comma separated)"
+    rows={3}
+  />
 
-            <textarea
-              name="ingredients"
-              value={form.ingredients}
-              onChange={handleChange}
-              placeholder="Ingredients (comma separated)"
-              rows={3}
-            />
+  <textarea
+    name="instructions"
+    value={form.instructions}
+    onChange={handleChange}
+    placeholder="Instructions"
+    rows={6}
+  />
 
-            <textarea
-              name="instructions"
-              value={form.instructions}
-              onChange={handleChange}
-              placeholder="Instructions"
-              rows={6}
-            />
+  <div className="input-group">
+    <label>Main Image URL</label>
+    <input
+      name="imageUrl"
+      value={form.imageUrl}
+      onChange={handleChange}
+      placeholder="Paste main image link"
+      className="styled-input"
+    />
+  </div>
 
-            <input name="imageUrl" value={form.imageUrl} onChange={handleChange} placeholder="Main Image URL" />
+  <div className="input-group">
+    <label>Hover Image URL</label>
+    <input
+      name="imageHoverUrl"
+      value={form.imageHoverUrl}
+      onChange={handleChange}
+      placeholder="Paste hover image link (optional)"
+      className="styled-input"
+    />
+  </div>
 
-            <input name="imageHoverUrl" value={form.imageHoverUrl} onChange={handleChange} placeholder="Hover Image URL (optional)" />
+  <div className="btn-group">
+    <button className="btn btn-save" onClick={handleSave} disabled={isSaving}>
+      {isSaving ? "Saving..." : "💾 Save"}
+    </button>
+    <button className="btn btn-cancel" onClick={() => { setIsEditing(false); setIsHover(false); }}>❌ Cancel</button>
+  </div>
+</div>
 
-            <div className="btn-group">
-              <button className="btn btn-save" onClick={handleSave} disabled={isSaving}>
-                {isSaving ? "Saving..." : "💾 Save"}
-              </button>
-              <button className="btn btn-cancel" onClick={() => { setIsEditing(false); setIsHover(false); }}>❌ Cancel</button>
-            </div>
-          </div>
         </>
       )}
     </div>
