@@ -45,7 +45,7 @@ This application is built with a focus on a smooth user experience, featuring in
 
 ## 📽️ Demo & Screenshots
 
-https://github.com/user-attachments/assets/65f3e15d-2ab3-4620-a302-840f782d6a7b
+https://github.com/user-attachments/assets/18e65bd7-3a7d-4457-b70d-25d2e77801fb
 
 ,
 
